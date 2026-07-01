@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   push_swap_daniel.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariade- <mariade-student.42lisboa.com>    +#+  +:+       +#+        */
+/*   By: dmaurici <dmaurici@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 00:43:34 by mariade-          #+#    #+#             */
-/*   Updated: 2026/06/23 00:43:35 by mariade-         ###   ########.fr       */
+/*   Updated: 2026/07/01 16:27:46 by dmaurici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP
-# define PUSH_SWAP
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
 
-# include "Libft/libft.h"
+# include "libft/libft.h" //libft
 
 typedef struct s_stack
 {
@@ -36,9 +36,44 @@ typedef struct s_bench
     int rra;
     int rrb;
     int rrr;
-    int strategy;
     int total;
-    float   disorder;
-}               t_bench;
+}   t_bench;
+
+typedef enum e_strategy
+{
+    START_ADAPTIVE,
+    START_SIMPLE,
+    START_MEDIUM,
+    START_COMPLEX
+}   t_strategy;
+
+
+typedef struct s_data
+{
+    t_stack     *a;
+    t_stack     *b;
+    int         size;/
+    int         bench_mode;
+    t_strategy  strategy;
+    double      disorder;
+    t_bench     bench;
+}   t_data;
+
+/* INIT / CLEANUP / ERROR */
+void	init_data(t_data *data);
+void	free_stack(t_stack **stack);
+void	free_data(t_data *data);
+int		error_exit(t_data *data);
+
+
+/* Stack utils */
+
+t_stack	*new_node(int value);
+void	stack_add_back(t_stack **stack, t_stack *node);
+void	stack_add_front(t_stack **stack, t_stack *node);
+t_stack	*stack_last(t_stack *stack);
+int		stack_size(t_stack *stack);
+int		is_sorted(t_stack *stack);
+
 
 #endif
