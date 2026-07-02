@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_daniel.h                                 :+:      :+:    :+:   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmaurici <dmaurici@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 00:43:34 by mariade-          #+#    #+#             */
-/*   Updated: 2026/07/01 16:27:46 by dmaurici         ###   ########.fr       */
+/*   Updated: 2026/07/02 16:33:12 by dmaurici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ t_stack	*stack_last(t_stack *stack);
 int		stack_size(t_stack *stack);
 int		is_sorted(t_stack *stack);
 
-
+/* OPERATORS */
+void pa(t_data *data, int print);
 #endif

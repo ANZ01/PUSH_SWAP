@@ -6,44 +6,56 @@
 /*   By: dmaurici <dmaurici@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 11:46:50 by dmaurici          #+#    #+#             */
-/*   Updated: 2026/06/23 12:41:44 by dmaurici         ###   ########.fr       */
+/*   Updated: 2026/07/02 16:21:45 by dmaurici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "push_swap.h"
 
-void	push_stack_op(t_stack **first_list, t_stack **second_list)
+static int	push_node(t_stack **from, t_stack **to)
 {
-	int				temp_v;
-	int				temp_i;
-	unsigned int	i;
+	t_stack	*node;
 
-	if ((!first_list || !*first_list) || (!second_list || !*second_list))
+	if (!from || !*from || !to)
+		return (0);
+	node = *from;
+	*from = node->next;
+	if (*from)
+		(*from)->prev = NULL;
+	node->next = *to;
+	node->prev = NULL;
+	if (*to)
+		(*to)->prev = node;
+	*to = node;
+	return (1);
+}
+
+void	pa(t_data *data, int print)
+{
+	if (!data)
 		return ;
-	i = 0;
-	while (i < 2)
+	if (push_node(&data->b, &data->a))
 	{
-		temp_i = *first_list->index;
-		temp_v = *first_list->value;
-		*first_list->index = *second_list->index;
-		*first_list->value = *second_list->value;
-		*second_list->index = temp_i;
-		*second_list->value = temp_v;
-		*first_list = *first_list->next;
-		*second_list = second_list->next;
-		i++;
+		if (print)
+		{
+			data->bench.pa++;
+			data->bench.total++;
+			ft_printf("pa\n");
+		}
 	}
 }
 
-void	pa(t_stack **a, t_stack **b, t_bench *bench)
+void	pb(t_data *data, int print)
 {
-	push_stack_op(a, b);
-	bench->pa++;
-	ft_printf("pa\n");
-}
-void	pb(t_stack **a, t_stack **b, t_bench *bench)
-{
-	push_stack_op(b, a);
-	bench->pb++;
-	ft_printf("pb\n");
+	if (!data)
+		return ;
+	if (push_node(&data->a, &data->b))
+	{
+		if (print)
+		{
+			data->bench.pb++;
+			data->bench.total++;
+			ft_printf("pb\n");
+		}
+	}
 }
