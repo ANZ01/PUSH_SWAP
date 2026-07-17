@@ -52,3 +52,56 @@ void	stack_add_front(t_stack **stack, t_stack *node)
 	*stack = node;
 }
 
+int	stack_size(t_stack *stack)
+{
+	int size;
+
+	size = 0;
+	while (stack)
+	{
+		size++;
+		stack = stack->next;
+	}
+	return (size);
+}
+int is_sorted(t_stack *stack)
+{
+	while (stack && stack->next)
+	{
+		if (stack->index > stack->next->index)
+			return (0);
+		stack = stack->next;
+	}
+	return (1);
+}
+int find_min_index(t_stack *stack)
+{
+	int	min;
+
+	if (!stack)
+		return (-1);
+	min = stack->index;
+	while (stack)
+	{
+		if (min > stack->index)
+			min = stack->index;
+		stack = stack->next;
+	}
+	return (min);
+}
+int find_max_index(t_stack *stack)
+{
+		int	max;
+
+	if (!stack)
+		return (-1);
+	max = stack->index;
+	while (stack)
+	{
+		if (max < stack->index)
+			max = stack->index;
+		stack = stack->next;
+	}
+	return (max);
+}
+int find_pos_by_index();
