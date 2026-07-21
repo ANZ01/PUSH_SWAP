@@ -74,34 +74,3 @@ int is_sorted(t_stack *stack)
 	}
 	return (1);
 }
-int find_min_index(t_stack *stack)
-{
-	int	min;
-
-	if (!stack)
-		return (-1);
-	min = stack->index;
-	while (stack)
-	{
-		if (min > stack->index)
-			min = stack->index;
-		stack = stack->next;
-	}
-	return (min);
-}
-int find_max_index(t_stack *stack)
-{
-		int	max;
-
-	if (!stack)
-		return (-1);
-	max = stack->index;
-	while (stack)
-	{
-		if (max < stack->index)
-			max = stack->index;
-		stack = stack->next;
-	}
-	return (max);
-}
-int find_pos_by_index();

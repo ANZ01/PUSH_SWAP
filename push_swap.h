@@ -6,14 +6,12 @@
 /*   By: dmaurici <dmaurici@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 00:43:34 by mariade-          #+#    #+#             */
-/*   Updated: 2026/07/02 16:33:12 by dmaurici         ###   ########.fr       */
+/*   Updated: 2026/07/21 15:52:26 by dmaurici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-
-# include "libft/libft.h" //libft
+#define PUSH_SWAP_H
 
 typedef struct s_stack
 {
@@ -26,7 +24,7 @@ typedef struct s_stack
 typedef struct s_bench
 {
     int sa;
-    int sb;
+   - int sb;
     int ss;
     int pa;
     int pb;
@@ -75,6 +73,23 @@ t_stack	*stack_last(t_stack *stack);
 int		stack_size(t_stack *stack);
 int		is_sorted(t_stack *stack);
 
+
+/* Helpers */
+int	find_pos_by_index(t_stack *stack, int index);
+int find_min_index(t_stack *stack);
+int find_max_index(t_stack *stack);
+
+
 /* OPERATORS */
-void pa(t_data *data, int print);
+void	sa(t_data *data, int print);
+void	sb(t_data *data, int print);
+void	ss(t_data *data, int print);
+void	pa(t_data *data,int print);
+void	pb(t_data *data,int print);
+void	ra(t_data *data, int print);
+void	rb(t_data *data, int print);
+void	rr(t_data *data, int print);
+void	rra(t_data *data, int print);
+void	rrb(t_data *data, int print);
+void	rrr(t_data *data, int print);
 #endif
