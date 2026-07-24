@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by login1, login2.*
+*This project has been created as part of the 42 curriculum by <login1>, <login2>.*
 
 ## Description
 
@@ -17,9 +17,6 @@ The available operations are: sa, sb, ss, pa, pb, ra, rb, rr, rra, rrb, rrr.
 # Build push_swap
 make
 
-# Build checker (bonus)
-make bonus
-
 # Clean objects
 make clean
 
@@ -29,6 +26,9 @@ make fclean
 # Rebuild
 make re
 ```
+
+Drop your libft (source files + its own Makefile, producing `libft.a`) into
+the `libft/` folder before building; the project Makefile calls it automatically.
 
 ### Usage
 
@@ -47,9 +47,6 @@ make re
 
 # Hide ops, show only metrics
 ./push_swap --bench 5 3 1 4 2 2>&1 1>/dev/null
-
-# Verify with checker
-./push_swap 5 3 1 4 2 | ./checker 5 3 1 4 2
 
 # Count operations
 ./push_swap 5 3 1 4 2 | wc -l
@@ -79,6 +76,12 @@ extra bookkeeping needed on the way back in. Each of the n selections
 costs up to O(n) rotations, giving O(n²) total.
 Used when: `--simple` flag or disorder < 0.2 in adaptive mode.
 
+Sizes 4 and 5 use a cheaper dedicated path (`sort_small.c`): push the
+current minimum out to b once (n=4) or twice (n=5), solve the
+remaining 3 with `sort_three`, then pull the pushed element(s) back —
+this closes most of the gap with a hand-optimized solution for these
+very common small sizes without adding real complexity.
+
 ### 2. Medium — O(n√n) — Chunk Sort
 
 Divides the index range into √n chunks. Pushes each chunk from a to b in order.
@@ -97,13 +100,16 @@ Used when: `--complex` flag or disorder ≥ 0.5 in adaptive mode.
 ### 4. Adaptive — Disorder-Based Selection
 
 Measures disorder before sorting (0.0 = sorted, 1.0 = fully reversed):
-- disorder < 0.2  → Simple O(n²)      — nearly sorted, few fixes needed
-- disorder < 0.5  → Medium O(n√n)     — partially sorted
-- disorder ≥ 0.5  → Complex O(n log n) — highly disordered
+- size ≤ 3         → sort_three (trivial, 0-2 ops)
+- size ≤ 5         → Simple / sort_small (dedicated small-n path)
+- size ≤ 100       → Medium O(n√n)
+- disorder < 0.2   → Medium O(n√n)     — nearly sorted, chunking wins
+- disorder ≥ 0.2   → Complex O(n log n) — highly disordered
 
-Threshold rationale: at low disorder, O(n²) beats radix sort in practice because
-the constant factor is smaller and fewer elements need moving. At high disorder,
-radix sort's logarithmic growth is essential to stay within operation limits.
+Threshold rationale: at low disorder or small size, O(n²)/O(n√n) beats
+radix sort in practice because the constant factor is smaller and fewer
+elements need moving. At high disorder, radix sort's logarithmic growth
+is essential to stay within operation limits.
 
 ## Resources
 
@@ -118,16 +124,17 @@ Claude (claude.ai) was used to:
 - Help structure the file layout and session plan
 - Review Norminette compliance of individual functions, and fix real
   violations (a CRLF-encoded file with inline comments in an invalid
-  scope, two functions over the 25-line limit, one file with too many
+  scope, functions over the 25-line limit, files with too many
   functions) confirmed against the actual `norminette` tool, not just
   a manual read-through
 - Explain radix sort adaptation for the push_swap operation model
 - Independently verify correctness: every operation sequence produced
-  by the program was replayed in a separate Python simulator (not
-  trusting the C code's own success/failure reporting) across 1260
-  randomized test cases spanning all 4 strategies and sizes 1-200.
-  This caught two real algorithmic bugs that compiled cleanly but
-  produced wrong output on specific inputs:
+  by the program was replayed in a separate simulator (not trusting
+  the C code's own success/failure reporting) across 1260+ randomized
+  test cases spanning all 4 strategies and a wide range of sizes, plus
+  a further 300 cases cross-checked against the official 42 reference
+  `checker_linux` binary. This caught two real algorithmic bugs that
+  compiled cleanly but produced wrong output on specific inputs:
   - `sort_three` had `ra`/`rra` swapped in two of its six branches
     (confirmed by hand-simulating each permutation)
   - `sort_medium`'s cost-optimized insertion path could rotate an
@@ -135,6 +142,9 @@ Claude (claude.ai) was used to:
     the insertion point for a later element (traced to a concrete
     6-element failing case); replaced with the simpler chunk-based
     approach that was already proven correct for larger inputs
+- Optimize `sort_simple` for n=4/5 with a dedicated path
+- Verify memory safety with AddressSanitizer and valgrind, including
+  the error-exit paths, confirming zero leaks
 - Debug linking errors during development
 
 All generated code was reviewed, understood, and tested by both team members
@@ -142,7 +152,7 @@ before inclusion in the project.
 
 ## Contributors
 
-| Login   | Contributions                                      |
-|---------|----------------------------------------------------|
-| login1  | Stack structure, operations, sort_simple, checker  |
-| login2  | sort_medium, sort_complex, adaptive, bench, README |
+| Login   | Contributions                                          |
+|---------|---------------------------------------------------------|
+| login1  | Stack structure, operations, sort_simple, sort_small     |
+| login2  | sort_medium, sort_complex, adaptive, bench, README       |

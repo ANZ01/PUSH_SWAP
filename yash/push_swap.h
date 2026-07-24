@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 00:00:00 by marvin            #+#    #+#             */
-/*   Updated: 2026/07/22 15:54:49 by marvin           ###   ########.fr       */
+/*   Updated: 2026/06/16 00:00:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,5 @@ void		sort_adaptive(t_ps *ps);
 
 /* bench.c */
 void		bench_print(t_ps *ps);
-
-/* checker_ops.c */
-void		apply_op(t_ps *ps, char *op);
 
 #endif
