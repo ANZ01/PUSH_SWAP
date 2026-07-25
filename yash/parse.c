@@ -33,9 +33,32 @@ static void	parse_token(const char *token, t_ps *ps)
 }
 
 /*
+** An argv entry can itself contain several space-separated numbers
+** (e.g. the whole thing was passed as one quoted shell argument).
+** Split it and feed every piece through parse_token.
+*/
+static void	parse_numbers(char *arg, t_ps *ps)
+{
+	char	**tokens;
+	int		i;
+
+	tokens = ft_split(arg, ' ');
+	if (!tokens)
+		error_exit(ps);
+	i = 0;
+	while (tokens[i])
+	{
+		parse_token(tokens[i], ps);
+		free(tokens[i]);
+		i++;
+	}
+	free(tokens);
+}
+
+/*
 ** Apply one argv entry: either a recognised flag (--bench sets the
 ** flag directly, the four strategy flags go through flag_to_strategy)
-** or a number to add to stack a.
+** or one or more numbers to add to stack a.
 */
 static void	apply_arg(char *arg, t_ps *ps)
 {
@@ -47,7 +70,7 @@ static void	apply_arg(char *arg, t_ps *ps)
 			ps->strategy = flag_to_strategy(arg);
 	}
 	else
-		parse_token(arg, ps);
+		parse_numbers(arg, ps);
 }
 
 /*
