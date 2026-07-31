@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dmaurici <dmaurici@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 00:00:00 by marvin            #+#    #+#             */
-/*   Updated: 2026/06/16 00:00:00 by marvin           ###   ########.fr       */
+/*   Updated: 2026/07/31 19:46:13 by dmaurici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	parse_numbers(char *arg, t_ps *ps)
 	int		i;
 
 	tokens = ft_split(arg, ' ');
-	if (!tokens)
+	if (!tokens || !tokens[0])
 		error_exit(ps);
 	i = 0;
 	while (tokens[i])
