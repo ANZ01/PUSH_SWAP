@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dmaurici <dmaurici@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 00:00:00 by marvin            #+#    #+#             */
-/*   Updated: 2026/06/16 00:00:00 by marvin           ###   ########.fr       */
+/*   Updated: 2026/08/02 19:08:08 by dmaurici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,54 +15,64 @@
 /*
 ** Validate and append a single number token to stack a.
 */
-static void	parse_token(const char *token, t_ps *ps)
+static t_bool	parse_token(const char *token, t_ps *ps)
 {
 	int		val;
 	t_node	*node;
 
 	if (!is_valid_int_str(token))
-		error_exit(ps);
+		return FALSE;
 	if (!in_int_range(token, &val))
-		error_exit(ps);
+		return FALSE;
 	if (has_duplicate(ps->a, val))
-		error_exit(ps);
+			return FALSE;
 	node = node_new(val);
 	if (!node)
-		error_exit(ps);
+		return FALSE;
 	stack_push_bottom(ps->a, node);
+	return TRUE;
 }
-
 /*
 ** An argv entry can itself contain several space-separated numbers
 ** (e.g. the whole thing was passed as one quoted shell argument).
-** Split it and feed every piece through parse_token. An argument
-** that splits into ZERO tokens (empty string, or all spaces) doesn't
-** represent any number at all -- that's invalid input, not something
-** to silently skip.
+** Split it and feed every piece through parse_token.
 */
+static void	free_tokens(char **tokens)
+{
+	int	i;
+	if (!tokens)
+		return ;
+	i = 0;
+	while (tokens[i])
+	{
+		free(tokens[i]);
+		i++;
+	}
+	free(tokens);
+}
 static void	parse_numbers(char *arg, t_ps *ps)
 {
 	char	**tokens;
 	int		i;
 
 	tokens = ft_split(arg, ' ');
-	if (!tokens)
-		error_exit(ps);
-	if (!tokens[0])
+	if (!tokens || !tokens[0])
 	{
-		free(tokens);
+		free_tokens(tokens);
 		error_exit(ps);
 	}
 	i = 0;
 	while (tokens[i])
 	{
-		parse_token(tokens[i], ps);
-		free(tokens[i]);
+		if (!parse_token(tokens[i], ps))
+		{
+			free_tokens(tokens);
+			error_exit(ps);
+		}
 		i++;
 	}
-	free(tokens);
+	free_tokens(tokens);
 }
-
 /*
 ** Apply one argv entry: either a recognised flag (--bench sets the
 ** flag directly, the four strategy flags go through flag_to_strategy)
