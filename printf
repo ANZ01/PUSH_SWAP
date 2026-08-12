@@ -1,0 +1,66 @@
+/*
+#include <stdio.h>
+#include <limits.h>
+ 
+int	main(void)
+{
+	char	*null_str;
+	int		x;
+ 
+	null_str = NULL;
+	x = 42;
+ 
+	ft_printf("char:    %c\n", 'A');
+	ft_printf("string:  %s\n", "hello");
+	ft_printf("null:    %s\n", null_str);
+	ft_printf("int:     %d\n", -2147483648);
+	ft_printf("uint:    %u\n", 4294967295u);
+	ft_printf("hex:     %x\n", 0xdeadbeef);
+	ft_printf("HEX:     %X\n", 0xDEADBEEF);
+	ft_printf("ptr:     %p\n", (void *)&x);
+	ft_printf("null ptr:%p\n", (void *)NULL);
+	ft_printf("percent: 100%%\n");
+	ft_printf("mixed:   %c %s %d %x %p\n", 'Z', "yo", -1, 255, (void *)&x);
+	
+    write(1, "\n", 1);
+
+    printf("char:    %c\n", 'A');
+	printf("string:  %s\n", "hello");
+	printf("null:    %s\n", null_str);
+	printf("int:     %d\n", -2147483648);
+	printf("uint:    %u\n", 4294967295u);
+	printf("hex:     %x\n", 0xdeadbeef);
+	printf("HEX:     %X\n", 0xDEADBEEF);
+	printf("ptr:     %p\n", (void *)&x);
+	printf("null ptr:%p\n", (void *)NULL);
+	printf("percent: 100%%\n");
+	printf("mixed:   %c %s %d %x %p\n", 'Z', "yo", -1, 255, (void *)&x);
+    return (0);
+}
+*/
+
+/*
+#include <stdio.h>
+#include <limits.h>
+
+int	main(void)
+{
+	printf("yours = %i\n", ft_printf("%p", NULL));
+	printf("libc = %i\n", printf("%p", NULL));
+	printf("\n");
+	printf("yours = %i\n", ft_printf("%s", NULL));
+	printf("libc = %i\n", printf("%s", NULL));
+	printf("\n");
+	printf("yours = %i\n", ft_printf("%", NULL));
+	printf("libc = %i\n", printf("%", NULL));
+	printf("\n");
+	printf("yours = %i\n", ft_printf("%z", NULL));
+	printf("libc = %i\n", printf("%z", NULL));
+	printf("\n");
+	ft_printf("Hello, %s\n", NULL);
+	printf("Hello, %s\n", NULL);
+	printf("\n");
+	ft_printf("%d %s %x %p %%\n", 0, NULL, 255, NULL);
+	printf("%d %s %x %p %%\n", 0, NULL, 255, NULL);
+	return (0);
+} */
