@@ -6,7 +6,7 @@
 /*   By: dmaurici <dmaurici@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/11 02:21:24 by dmaurici          #+#    #+#             */
-/*   Updated: 2026/08/11 02:23:54 by dmaurici         ###   ########.fr       */
+/*   Updated: 2026/08/13 23:11:44 by dmaurici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ void	sort_complex(t_ps *ps)
 
 	if (stack_is_sorted(ps->a))
 		return ;
+	if (ps->a->size <= 5)
+	{
+		sort_simple(ps);
+		return ;
+	}
 	size = ps->a->size;
 	bits = bits_needed(size);
 	bit = 0;

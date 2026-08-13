@@ -6,7 +6,7 @@
 /*   By: dmaurici <dmaurici@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/11 02:19:43 by dmaurici          #+#    #+#             */
-/*   Updated: 2026/08/11 04:13:24 by dmaurici         ###   ########.fr       */
+/*   Updated: 2026/08/13 22:42:07 by dmaurici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void		sort_three(t_ps *ps);
 /* sort_helpers.c */
 int			find_min_pos(t_stack *s);
 void		rotate_to_top(t_ps *ps, int pos);
+int			ps_sqrt(int n);
 
 /* sort_small.c */
 void		sort_small(t_ps *ps, int pushes);

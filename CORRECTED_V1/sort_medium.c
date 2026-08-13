@@ -6,12 +6,11 @@
 /*   By: dmaurici <dmaurici@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/11 02:21:33 by dmaurici          #+#    #+#             */
-/*   Updated: 2026/08/11 02:24:23 by dmaurici         ###   ########.fr       */
+/*   Updated: 2026/08/13 23:11:55 by dmaurici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <math.h>
 
 static void	push_one_chunk(t_ps *ps, int lo, int hi)
 {
@@ -101,8 +100,13 @@ void	sort_medium(t_ps *ps)
 
 	if (stack_is_sorted(ps->a))
 		return ;
+	if (ps->a->size <= 5)
+	{
+		sort_simple(ps);
+		return ;
+	}
 	n = ps->a->size;
-	chunk = (int)(sqrt((double)n) * 3.5) + 3;
+	chunk = (ps_sqrt(n) * 7) / 2 + 3;
 	chunk_push(ps, chunk);
 	while (ps->b->size > 0)
 	{

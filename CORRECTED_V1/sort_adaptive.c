@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_adaptive.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yakumar <yakumar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dmaurici <dmaurici@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/11 02:21:17 by dmaurici          #+#    #+#             */
-/*   Updated: 2026/08/12 18:30:16 by yakumar          ###   ########.fr       */
+/*   Updated: 2026/08/13 23:07:40 by dmaurici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ void	sort_adaptive(t_ps *ps)
 		return ;
 	if (ps->a->size <= 3)
 		sort_three(ps);
+	if (ps->a->size <= 5)
+		sort_simple(ps);
 	else if (ps->disorder < 0.2)
 		sort_simple(ps);
-	else if (ps->disorder < 0.5)
+	else if (ps->disorder >= 0.2 && ps->disorder < 0.5)
 		sort_medium(ps);
 	else
 		sort_complex(ps);

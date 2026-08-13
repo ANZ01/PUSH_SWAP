@@ -6,7 +6,7 @@
 /*   By: dmaurici <dmaurici@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/11 02:21:29 by dmaurici          #+#    #+#             */
-/*   Updated: 2026/08/11 02:24:01 by dmaurici         ###   ########.fr       */
+/*   Updated: 2026/08/13 22:42:18 by dmaurici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,14 @@ void	rotate_to_top(t_ps *ps, int pos)
 		while (pos-- > 0)
 			op_rra(ps);
 	}
+}
+
+int	ps_sqrt(int n)
+{
+	int	r;
+
+	r = 0;
+	while ((r + 1) <= n / (r + 1))
+		r++;
+	return (r);
 }

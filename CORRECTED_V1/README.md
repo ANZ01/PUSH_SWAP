@@ -588,7 +588,7 @@ AI was used for:
 - improving README structure and wording
 
 AI was not used as a replacement for understanding the project.  
-All code was reviewed, tested, and adapted manually by the author.
+All code was reviewed, tested, and adapted manually by the authors.
 
 ---
 
