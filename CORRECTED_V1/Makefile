@@ -6,7 +6,7 @@
 #    By: dmaurici <dmaurici@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/11 02:17:05 by dmaurici          #+#    #+#              #
-#    Updated: 2026/08/11 02:22:47 by dmaurici         ###   ########.fr        #
+#    Updated: 2026/08/14 00:18:57 by dmaurici         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ $(LIBFT):
 			$(MAKE) -C libft
 
 $(NAME):	$(OBJS)
-			$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lm -o $(NAME)
+			$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 %.o:		%.c
 			$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
